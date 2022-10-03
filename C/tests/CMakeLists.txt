@@ -1,0 +1,2 @@
+add_subdirectory(vector_tests)
+add_subdirectory(ce_system_tests)
