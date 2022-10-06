@@ -9,15 +9,15 @@ int main(void){
 
     struct celestial_system* ce_system;
     ce_system = calloc(1, sizeof(struct celestial_system));
-    struct vector* force;
+    struct vector* force = calloc(1, sizeof(struct vector));
 
     populate_system(ce_system, fname);
-    force = get_net_force(ce_system->body_list[0], ce_system);
+    get_net_force(force, ce_system->body_list[0], ce_system);
     clear_system(ce_system);
 
     bool passed_test;
 
-    if (force->x == 1.0 && force->y == 0.0 && force->z == 0.0){
+    if (force->x == -1.0 && force->y == 0.0 && force->z == 0.0){
         free(force);
         return 0;
     }

@@ -4,12 +4,7 @@
 #include "celestial_system.h"
 #include "vector.h"
 
-struct vector* get_net_force(struct celestial_body* target, struct celestial_system* ce_system){
-    struct vector* force = calloc(1, sizeof(struct vector));
-    force->x = 0;
-    force->y = 0;
-    force->z = 0;
-
+void get_net_force(struct vector* force, struct celestial_body* target, struct celestial_system* ce_system){
     struct vector* force_tmp = calloc(1, sizeof(struct vector));
     force_tmp->x = 0;
     force_tmp->y = 0;
@@ -19,7 +14,7 @@ struct vector* get_net_force(struct celestial_body* target, struct celestial_sys
     double distance_factor;
     struct vector* distance = calloc(1, sizeof(struct vector));
     for (int ii=0; ii<ce_system->number_of_bodies; ii++){
-        vec_sub(distance, target->position, ce_system->body_list[ii]->position);
+        vec_sub(distance, ce_system->body_list[ii]->position, target->position);
         distance_factor = pow(vec_mag(distance), 3);
         if (distance_factor == 0.0){
             continue;
@@ -30,7 +25,6 @@ struct vector* get_net_force(struct celestial_body* target, struct celestial_sys
     }
     free(force_tmp);
     free(distance);
-    return force;
 }
 
 void move_body(struct vector* force, double dt, struct celestial_body* body){
@@ -82,6 +76,11 @@ struct celestial_body* make_body(char* file_line){
 }
 
 void populate_system(struct celestial_system* ce_system, char* input_file_name){
+    if(ce_system == NULL){
+        printf("NULL pointer passed to populate_system\n");
+        exit(EXIT_FAILURE);
+    }
+
     FILE* filer;
     filer = fopen(input_file_name, "r");
 

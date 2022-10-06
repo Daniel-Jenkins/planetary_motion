@@ -8,7 +8,7 @@ set(CMAKE_C_STANDARD_REQUIRED ON)
 
 add_subdirectory(vector)
 add_subdirectory(celestial_system)
-# add_subdirectory(simulation)
+add_subdirectory(simulation)
 
 include(CTest)
 enable_testing()

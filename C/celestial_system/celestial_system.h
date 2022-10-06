@@ -26,12 +26,11 @@ struct celestial_system{
  * 
  * Returns the net Newtonian gravitational force on a celestial body
  *
+ * force: vector struct to hold the result
  * target: the body the force will be acting on
  * ce_system: the full celestial system that is acting upon the target
- *
- * returns: a vector struct describing the net force
  */
-struct vector* get_net_force(struct celestial_body* target, struct celestial_system* ce_system);
+void get_net_force(struct vector* force, struct celestial_body* target, struct celestial_system* ce_system);
 
 /*
  * Function: move_body
